@@ -24,6 +24,8 @@
   .tab { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid #1e293b; background: #0f172a; color: #64748b; transition: all 0.2s; }
   .tab:hover { color: #cbd5e1; border-color: #334155; }
   .tab.active { background: rgba(34,211,238,0.1); color: #22d3ee; border-color: rgba(34,211,238,0.3); }
+  .tab.watchlist { color: #fbbf24; }
+  .tab.watchlist.active { background: rgba(251,191,36,0.1); color: #fbbf24; border-color: rgba(251,191,36,0.3); }
   .tab-count { margin-left: 6px; font-size: 11px; opacity: 0.6; }
 
   .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -34,7 +36,6 @@
   .search-box input:focus { border-color: rgba(34,211,238,0.4); }
   .search-icon { position: absolute; left: 9px; top: 8px; width: 14px; height: 14px; color: #475569; }
 
-  /* ── Slider panel ── */
   .filter-panel { background: rgba(15,23,42,0.6); border: 1px solid rgba(30,41,59,0.7); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 24px; }
   .filter-row { display: flex; flex-direction: column; gap: 6px; }
   .filter-label { font-size: 11px; color: #64748b; display: flex; justify-content: space-between; align-items: center; }
@@ -42,46 +43,22 @@
   .dual-slider { position: relative; height: 28px; display: flex; align-items: center; }
   .slider-track { position: absolute; left: 0; right: 0; height: 3px; background: #1e293b; border-radius: 2px; pointer-events: none; }
   .slider-fill { position: absolute; height: 3px; background: #22d3ee; border-radius: 2px; pointer-events: none; }
-  .dual-slider input[type=range] {
-    position: absolute; width: 100%; appearance: none; -webkit-appearance: none;
-    background: transparent; pointer-events: none; height: 3px;
-  }
-  .dual-slider input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 14px; height: 14px;
-    border-radius: 50%; background: #22d3ee; cursor: pointer;
-    pointer-events: all; border: 2px solid #0a0e17;
-    transition: transform 0.15s;
-  }
+  .dual-slider input[type=range] { position: absolute; width: 100%; appearance: none; -webkit-appearance: none; background: transparent; pointer-events: none; height: 3px; }
+  .dual-slider input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #22d3ee; cursor: pointer; pointer-events: all; border: 2px solid #0a0e17; transition: transform 0.15s; }
   .dual-slider input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
-  .dual-slider input[type=range]::-moz-range-thumb {
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #22d3ee; cursor: pointer; pointer-events: all;
-    border: 2px solid #0a0e17;
-  }
+  .dual-slider input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #22d3ee; cursor: pointer; pointer-events: all; border: 2px solid #0a0e17; }
   .single-slider { display: flex; align-items: center; gap: 0; }
-  .single-slider input[type=range] {
-    flex: 1; appearance: none; -webkit-appearance: none;
-    height: 3px; background: linear-gradient(to right, #22d3ee var(--pct,0%), #1e293b var(--pct,0%));
-    border-radius: 2px; cursor: pointer;
-  }
-  .single-slider input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 14px; height: 14px;
-    border-radius: 50%; background: #22d3ee; cursor: pointer;
-    border: 2px solid #0a0e17; transition: transform 0.15s;
-  }
+  .single-slider input[type=range] { flex: 1; appearance: none; -webkit-appearance: none; height: 3px; background: linear-gradient(to right, #22d3ee var(--pct,0%), #1e293b var(--pct,0%)); border-radius: 2px; cursor: pointer; }
+  .single-slider input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #22d3ee; cursor: pointer; border: 2px solid #0a0e17; transition: transform 0.15s; }
   .single-slider input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
-  .single-slider input[type=range]::-moz-range-thumb {
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #22d3ee; cursor: pointer; border: 2px solid #0a0e17;
-  }
+  .single-slider input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #22d3ee; cursor: pointer; border: 2px solid #0a0e17; }
   .reset-btn { font-size: 11px; color: #475569; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; transition: color 0.15s; white-space: nowrap; }
   .reset-btn:hover { color: #94a3b8; }
-  .filter-panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
   .filter-toggle { font-size: 12px; color: #475569; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; transition: all 0.15s; }
   .filter-toggle:hover { color: #94a3b8; background: rgba(30,41,59,0.4); }
   .filter-toggle.active { color: #22d3ee; }
 
-  .legend { display: flex; gap: 14px; font-size: 11px; color: #64748b; margin-bottom: 12px; }
+  .legend { display: flex; gap: 14px; font-size: 11px; color: #64748b; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
   .legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 
   .table-wrap { background: rgba(15,23,42,0.5); border: 1px solid rgba(30,41,59,0.6); border-radius: 12px; overflow: hidden; }
@@ -91,12 +68,15 @@
   thead th.sortable { cursor: pointer; }
   thead th.sortable:hover { color: #cbd5e1; }
   thead th.num { text-align: right; }
+  thead th.star-col { width: 32px; padding-left: 12px; padding-right: 4px; }
   tbody td { padding: 7px 10px; white-space: nowrap; border-bottom: 1px solid rgba(30,41,59,0.3); }
   tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr { cursor: pointer; transition: background 0.1s; }
   tbody tr:hover { background: rgba(30,41,59,0.3); }
   tbody tr.premium-neg { background: rgba(16,185,129,0.04); }
   tbody tr.premium-low { background: rgba(245,158,11,0.04); }
   tbody tr.premium-high { background: rgba(244,63,94,0.04); }
+  tbody tr.expanded { background: rgba(34,211,238,0.06) !important; }
 
   .code { font-family: 'SF Mono', 'Menlo', monospace; font-weight: 600; color: #e2e8f0; }
   .color-green { color: #34d399; }
@@ -105,6 +85,36 @@
   .color-gray { color: #64748b; }
   .sort-arrow { margin-left: 3px; color: #22d3ee; }
   .sort-arrow-dim { margin-left: 3px; opacity: 0.2; }
+
+  .star-btn { background: none; border: none; cursor: pointer; padding: 2px; font-size: 15px; line-height: 1; color: #334155; transition: all 0.15s; }
+  .star-btn:hover { transform: scale(1.2); color: #64748b; }
+  .star-btn.on { color: #fbbf24; }
+
+  .expiry-urgent { color: #fb7185; font-weight: 600; }
+  .expiry-warn { color: #fb923c; }
+  .expiry-days { font-size: 10px; color: #64748b; margin-left: 4px; }
+
+  .calc-row td { padding: 0; border-bottom: 1px solid rgba(30,41,59,0.5); }
+  .calc-panel { background: rgba(7,10,16,0.6); padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .calc-section h4 { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; font-weight: 500; }
+  .calc-input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .calc-input-row label { font-size: 12px; color: #94a3b8; width: 70px; flex-shrink: 0; }
+  .calc-input-row input[type=number] { flex: 1; background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; padding: 5px 8px; font-size: 13px; color: #e2e8f0; outline: none; font-variant-numeric: tabular-nums; font-family: 'SF Mono', monospace; }
+  .calc-input-row input[type=number]:focus { border-color: rgba(34,211,238,0.4); }
+  .calc-input-row .unit { font-size: 11px; color: #475569; }
+  .calc-result { background: rgba(15,23,42,0.6); border-radius: 8px; padding: 12px 14px; margin-top: 8px; }
+  .calc-result-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 13px; }
+  .calc-result-row .k { color: #64748b; font-size: 12px; }
+  .calc-result-row .v { font-variant-numeric: tabular-nums; font-weight: 500; color: #e2e8f0; }
+  .calc-result-row.highlight .v { color: #22d3ee; font-size: 15px; }
+  .calc-result-row.profit-pos .v { color: #34d399; }
+  .calc-result-row.profit-neg .v { color: #fb7185; }
+  .calc-presets { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .calc-preset { font-size: 11px; padding: 3px 8px; background: #1e293b; border: 1px solid #334155; border-radius: 4px; color: #94a3b8; cursor: pointer; transition: all 0.15s; }
+  .calc-preset:hover { background: #334155; color: #e2e8f0; }
+  .calc-close { text-align: right; margin-top: 8px; grid-column: 1/-1; }
+  .calc-close button { font-size: 11px; color: #64748b; background: none; border: none; cursor: pointer; padding: 4px 8px; }
+  .calc-close button:hover { color: #cbd5e1; }
 
   .footer { margin-top: 24px; text-align: center; font-size: 11px; color: #475569; line-height: 1.8; padding-bottom: 24px; }
 
@@ -118,22 +128,31 @@
   .error-card p { font-size: 13px; color: #94a3b8; line-height: 1.6; }
 
   .empty { padding: 48px 10px; text-align: center; color: #475569; }
+  .empty small { display: block; margin-top: 6px; font-size: 11px; color: #334155; }
 
   @media (max-width: 640px) {
     .search-box { width: 100%; }
     .toolbar { flex-direction: column; align-items: stretch; }
     .filter-panel { grid-template-columns: 1fr; }
+    .calc-panel { grid-template-columns: 1fr; gap: 16px; }
   }
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState, useEffect, useMemo, useRef, useCallback } = React;
+const { useState, useEffect, useMemo } = React;
 
 const DATA_URL = "./data/latest.json";
+const LS_KEYS = {
+  watchlist: "cb-watchlist",
+  filters: "cb-filters",
+  activeTab: "cb-active-tab",
+  sort: "cb-sort",
+};
 
 const COLUMNS = [
+  { key: "__star", label: "", sortable: false, starCol: true },
   { key: "代號", label: "代號", sortable: true },
   { key: "債券名稱", label: "名稱", sortable: true },
   { key: "債券市價", label: "CB價", sortable: true, num: true },
@@ -171,13 +190,39 @@ function premRowClass(r) {
   return "premium-high";
 }
 
-/* ── Dual range slider ── */
-function DualSlider({ min, max, step=1, valMin, valMax, onChange, fmtLabel }) {
-  const trackRef = useRef(null);
+function parseExpiry(s) {
+  if (!s) return null;
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return null;
+  return d;
+}
+function daysToExpiry(s) {
+  const d = parseExpiry(s);
+  if (!d) return null;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  return Math.ceil((d - today) / (1000*60*60*24));
+}
+function expiryClass(days) {
+  if (days == null) return "";
+  if (days < 90) return "expiry-urgent";
+  if (days < 180) return "expiry-warn";
+  return "";
+}
 
+function loadLS(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function saveLS(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+function DualSlider({ min, max, step=1, valMin, valMax, onChange, fmtLabel }) {
   const pctMin = ((valMin - min) / (max - min)) * 100;
   const pctMax = ((valMax - min) / (max - min)) * 100;
-
   const handleMin = e => {
     const v = Math.min(Number(e.target.value), valMax - step);
     onChange([v, valMax]);
@@ -186,14 +231,11 @@ function DualSlider({ min, max, step=1, valMin, valMax, onChange, fmtLabel }) {
     const v = Math.max(Number(e.target.value), valMin + step);
     onChange([valMin, v]);
   };
-
-  const label = fmtLabel ? fmtLabel(valMin, valMax) : `${valMin} ~ ${valMax}`;
-
   return (
     <div className="filter-row">
       <div className="filter-label">
-        <span style={{color:"#94a3b8"}}>{fmtLabel ? "" : ""}</span>
-        <span>{label}</span>
+        <span></span>
+        <span>{fmtLabel ? fmtLabel(valMin, valMax) : `${valMin} ~ ${valMax}`}</span>
       </div>
       <div className="dual-slider">
         <div className="slider-track" />
@@ -205,15 +247,13 @@ function DualSlider({ min, max, step=1, valMin, valMax, onChange, fmtLabel }) {
   );
 }
 
-/* ── Single min slider ── */
 function MinSlider({ min, max, step=1, value, onChange, fmtLabel }) {
   const pct = ((value - min) / (max - min)) * 100;
-  const label = fmtLabel ? fmtLabel(value) : value;
   return (
     <div className="filter-row">
       <div className="filter-label">
-        <span style={{color:"#94a3b8"}}></span>
-        <span>{label}</span>
+        <span></span>
+        <span>{fmtLabel ? fmtLabel(value) : value}</span>
       </div>
       <div className="single-slider">
         <input
@@ -226,21 +266,18 @@ function MinSlider({ min, max, step=1, value, onChange, fmtLabel }) {
   );
 }
 
-/* ── Filter panel ── */
 const DEFAULT_FILTERS = {
   premMin: -20, premMax: 50,
   cbMin: 80,    cbMax: 200,
   vol5Min: 0,
 };
 
-function FilterPanel({ filters, setFilters, rawData }) {
+function FilterPanel({ filters, setFilters }) {
   const reset = () => setFilters(DEFAULT_FILTERS);
-
   const hasChange = JSON.stringify(filters) !== JSON.stringify(DEFAULT_FILTERS);
 
   return (
     <div className="filter-panel">
-      {/* 溢價率 */}
       <div>
         <div className="filter-label" style={{marginBottom:4}}>
           溢價率範圍
@@ -253,8 +290,6 @@ function FilterPanel({ filters, setFilters, rawData }) {
           fmtLabel={(a,b) => `${a}% ~ ${b}%`}
         />
       </div>
-
-      {/* CB價格 */}
       <div>
         <div className="filter-label" style={{marginBottom:4}}>
           CB 價格範圍
@@ -267,8 +302,6 @@ function FilterPanel({ filters, setFilters, rawData }) {
           fmtLabel={(a,b) => `${a} ~ ${b}`}
         />
       </div>
-
-      {/* 5日均量 */}
       <div>
         <div className="filter-label" style={{marginBottom:4}}>
           5日均量下限
@@ -281,7 +314,6 @@ function FilterPanel({ filters, setFilters, rawData }) {
           fmtLabel={v => v === 0 ? "不限" : `≥ ${v} 張`}
         />
       </div>
-
       {hasChange && (
         <div style={{display:"flex", alignItems:"flex-end"}}>
           <button className="reset-btn" style={{color:"#fb7185", fontSize:12}} onClick={reset}>
@@ -293,41 +325,202 @@ function FilterPanel({ filters, setFilters, rawData }) {
   );
 }
 
+function Calculator({ row, onClose }) {
+  const stockPrice = row["標的股價"];
+  const convPrice = row["轉換價格"];
+  const cbPrice = row["債券市價"];
+  const expiryDays = daysToExpiry(row["到期日"]);
+  const currentPrem = row["溢價率"] || 0;
+
+  const defaultTarget = stockPrice ? +(stockPrice * 1.10).toFixed(2) : 0;
+  const [targetStock, setTargetStock] = useState(defaultTarget);
+  const [lots, setLots] = useState(1);
+  const [holdingDays, setHoldingDays] = useState(60);
+
+  useEffect(() => {
+    setTargetStock(stockPrice ? +(stockPrice * 1.10).toFixed(2) : 0);
+  }, [row["代號"]]);
+
+  const targetConvValue = (targetStock && convPrice) ? (100 * targetStock / convPrice) : 0;
+  const assumedPrem = Math.max(0, Math.min(currentPrem, 0.03));
+  const targetCbPrice = targetConvValue * (1 + assumedPrem);
+
+  const faceValue = 100000;
+  const buyCost = (cbPrice / 100) * faceValue * lots;
+  const sellValue = (targetCbPrice / 100) * faceValue * lots;
+  const profit = sellValue - buyCost;
+  const profitPct = buyCost > 0 ? (profit / buyCost) : 0;
+  const annualized = holdingDays > 0 ? (profitPct * 365 / holdingDays) : 0;
+
+  const fmt = (v, d=2) => (v||0).toLocaleString("zh-TW", {maximumFractionDigits: d, minimumFractionDigits: d});
+  const fmtInt = v => Math.round(v||0).toLocaleString("zh-TW");
+
+  const presets = stockPrice ? [
+    { label: "+5%", v: +(stockPrice*1.05).toFixed(2) },
+    { label: "+10%", v: +(stockPrice*1.10).toFixed(2) },
+    { label: "+15%", v: +(stockPrice*1.15).toFixed(2) },
+    { label: "+20%", v: +(stockPrice*1.20).toFixed(2) },
+  ] : [];
+
+  return (
+    <div className="calc-panel">
+      <div className="calc-section">
+        <h4>📊 目標設定</h4>
+        <div className="calc-input-row">
+          <label>目標股價</label>
+          <input type="number" step="0.1" value={targetStock}
+                 onChange={e => setTargetStock(Number(e.target.value))} />
+          <span className="unit">元</span>
+        </div>
+        <div className="calc-presets">
+          {presets.map(p => (
+            <span key={p.label} className="calc-preset" onClick={() => setTargetStock(p.v)}>
+              {p.label} ({p.v})
+            </span>
+          ))}
+        </div>
+        <div className="calc-input-row" style={{marginTop:14}}>
+          <label>買進張數</label>
+          <input type="number" min="1" step="1" value={lots}
+                 onChange={e => setLots(Math.max(1, Number(e.target.value)))} />
+          <span className="unit">張</span>
+        </div>
+        <div className="calc-input-row">
+          <label>持有天數</label>
+          <input type="number" min="1" step="1" value={holdingDays}
+                 onChange={e => setHoldingDays(Math.max(1, Number(e.target.value)))} />
+          <span className="unit">天</span>
+        </div>
+        <div style={{fontSize:11, color:"#475569", marginTop:8, lineHeight:1.6}}>
+          現況：股價 {fmt(stockPrice)} · CB {fmt(cbPrice)} · 溢價率 {fmt(currentPrem*100,1)}%
+          {expiryDays != null && ` · 距到期 ${expiryDays} 天`}
+        </div>
+      </div>
+
+      <div className="calc-section">
+        <h4>💰 試算結果</h4>
+        <div className="calc-result">
+          <div className="calc-result-row">
+            <span className="k">目標轉換價值</span>
+            <span className="v">{fmt(targetConvValue)}</span>
+          </div>
+          <div className="calc-result-row">
+            <span className="k">預期 CB 價（假設溢價 {fmt(assumedPrem*100,1)}%）</span>
+            <span className="v">{fmt(targetCbPrice)}</span>
+          </div>
+          <div className="calc-result-row" style={{borderTop:"1px solid rgba(30,41,59,0.6)", marginTop:6, paddingTop:8}}>
+            <span className="k">買進成本</span>
+            <span className="v">NT$ {fmtInt(buyCost)}</span>
+          </div>
+          <div className="calc-result-row">
+            <span className="k">預期售出</span>
+            <span className="v">NT$ {fmtInt(sellValue)}</span>
+          </div>
+          <div className={`calc-result-row highlight ${profit>=0?"profit-pos":"profit-neg"}`}>
+            <span className="k">預期損益</span>
+            <span className="v">{profit>=0?"+":""}NT$ {fmtInt(profit)} ({profit>=0?"+":""}{fmt(profitPct*100,1)}%)</span>
+          </div>
+          <div className={`calc-result-row ${annualized>=0?"profit-pos":"profit-neg"}`}>
+            <span className="k">年化報酬率</span>
+            <span className="v">{annualized>=0?"+":""}{fmt(annualized*100,1)}%</span>
+          </div>
+        </div>
+        <div style={{fontSize:10, color:"#475569", marginTop:8, lineHeight:1.5}}>
+          * 簡化假設：股價漲到目標時，溢價率收斂至 max(0, min(目前溢價, 3%))。
+            實際會受流動性、剩餘天期、利率影響。
+        </div>
+      </div>
+
+      <div className="calc-close">
+        <button onClick={onClose}>✕ 收合</button>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState(null);
-  const [sortKey, setSortKey] = useState("溢價率");
-  const [sortDir, setSortDir] = useState("asc");
+
+  const savedSort = loadLS(LS_KEYS.sort, {key:"溢價率",dir:"asc"});
+  const [activeTab, setActiveTab] = useState(() => loadLS(LS_KEYS.activeTab, null));
+  const [sortKey, setSortKey] = useState(savedSort.key);
+  const [sortDir, setSortDir] = useState(savedSort.dir);
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(true);
-  const [filters, setFilters] = useState(DEFAULT_FILTERS);
+  const [filters, setFilters] = useState(() => loadLS(LS_KEYS.filters, DEFAULT_FILTERS));
+  const [watchlist, setWatchlist] = useState(() => new Set(loadLS(LS_KEYS.watchlist, [])));
+  const [expandedRow, setExpandedRow] = useState(null);
+
+  useEffect(() => saveLS(LS_KEYS.filters, filters), [filters]);
+  useEffect(() => saveLS(LS_KEYS.watchlist, [...watchlist]), [watchlist]);
+  useEffect(() => { if (activeTab) saveLS(LS_KEYS.activeTab, activeTab); }, [activeTab]);
+  useEffect(() => saveLS(LS_KEYS.sort, {key:sortKey, dir:sortDir}), [sortKey, sortDir]);
 
   useEffect(() => {
     fetch(DATA_URL)
       .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(json => {
         setData(json);
-        const keys = Object.keys(json.strategies || {});
-        if (keys.length) setActiveTab(keys[0]);
+        // 只考慮有資料的策略
+        const keys = Object.keys(json.strategies || {}).filter(k => {
+          const s = json.strategies[k];
+          return s && ((s.count && s.count > 0) || (s.data && s.data.length > 0));
+        });
+        const saved = loadLS(LS_KEYS.activeTab, null);
+        if (saved && (saved === "__watchlist" || keys.includes(saved))) {
+          setActiveTab(saved);
+        } else if (keys.length) {
+          setActiveTab(keys[0]);
+        } else {
+          // 所有策略都空 → 預設看關注清單
+          setActiveTab("__watchlist");
+        }
       })
       .catch(e => setError("無法載入資料：" + e.message + "\n請確認 GitHub Actions 已執行並產生 latest.json。"))
       .finally(() => setLoading(false));
   }, []);
+
+  const toggleWatch = (code) => {
+    setWatchlist(prev => {
+      const next = new Set(prev);
+      if (next.has(code)) next.delete(code); else next.add(code);
+      return next;
+    });
+  };
 
   const doSort = (key) => {
     if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
     else { setSortKey(key); setSortDir("asc"); }
   };
 
+  // 跨策略合併所有 CB（for 關注清單）
+  const allRows = useMemo(() => {
+    if (!data) return [];
+    const seen = new Set();
+    const merged = [];
+    Object.values(data.strategies || {}).forEach(s => {
+      (s.data || []).forEach(r => {
+        const code = String(r["代號"]);
+        if (!seen.has(code)) { seen.add(code); merged.push(r); }
+      });
+    });
+    return merged;
+  }, [data]);
+
   const rows = useMemo(() => {
     if (!data || !activeTab) return [];
-    const s = data.strategies[activeTab];
-    if (!s || !s.data) return [];
-    let arr = [...s.data];
 
-    // 文字搜尋
+    let arr;
+    if (activeTab === "__watchlist") {
+      arr = allRows.filter(r => watchlist.has(String(r["代號"])));
+    } else {
+      const s = data.strategies[activeTab];
+      if (!s || !s.data) return [];
+      arr = [...s.data];
+    }
+
     if (search) {
       const q = search.toLowerCase();
       arr = arr.filter(r =>
@@ -337,7 +530,6 @@ function App() {
       );
     }
 
-    // 滑桿篩選
     arr = arr.filter(r => {
       const prem = r["溢價率"];
       if (prem != null && !isNaN(prem)) {
@@ -361,9 +553,15 @@ function App() {
       return sortDir === "asc" ? va - vb : vb - va;
     });
     return arr;
-  }, [data, activeTab, sortKey, sortDir, search, filters]);
+  }, [data, activeTab, sortKey, sortDir, search, filters, watchlist, allRows]);
 
-  const strategies = data ? Object.keys(data.strategies || {}) : [];
+  // 自動隱藏沒篩到任何 CB 的策略 tab
+  const strategies = data
+    ? Object.keys(data.strategies || {}).filter(k => {
+        const s = data.strategies[k];
+        return s && ((s.count && s.count > 0) || (s.data && s.data.length > 0));
+      })
+    : [];
   const hasActiveFilters = JSON.stringify(filters) !== JSON.stringify(DEFAULT_FILTERS);
 
   if (loading) return (
@@ -398,10 +596,15 @@ function App() {
         <div className="toolbar">
           <div className="tabs">
             {strategies.map(s => (
-              <div key={s} className={`tab ${s === activeTab ? "active" : ""}`} onClick={() => setActiveTab(s)}>
+              <div key={s} className={`tab ${s === activeTab ? "active" : ""}`}
+                   onClick={() => { setActiveTab(s); setExpandedRow(null); }}>
                 {s}<span className="tab-count">{data.strategies[s]?.count || 0}</span>
               </div>
             ))}
+            <div className={`tab watchlist ${activeTab === "__watchlist" ? "active" : ""}`}
+                 onClick={() => { setActiveTab("__watchlist"); setExpandedRow(null); }}>
+              ⭐ 關注<span className="tab-count">{watchlist.size}</span>
+            </div>
           </div>
           <div style={{display:"flex",gap:8,alignItems:"center"}}>
             <button
@@ -419,13 +622,14 @@ function App() {
         </div>
 
         {showFilters && (
-          <FilterPanel filters={filters} setFilters={setFilters} rawData={data} />
+          <FilterPanel filters={filters} setFilters={setFilters} />
         )}
 
         <div className="legend">
           <span><span className="legend-dot" style={{background:"#34d399"}} />折價</span>
           <span><span className="legend-dot" style={{background:"#fbbf24"}} />微溢價(&lt;5%)</span>
           <span><span className="legend-dot" style={{background:"#fb7185"}} />溢價</span>
+          <span style={{marginLeft:"auto", color:"#64748b", fontSize:11}}>點列可試算 · ⭐ 收藏 · 到期 &lt;180天 橘 / &lt;90天 紅</span>
         </div>
 
         <div className="table-wrap">
@@ -435,7 +639,7 @@ function App() {
                 <tr>
                   {COLUMNS.map(c => (
                     <th key={c.key}
-                        className={(c.sortable ? "sortable " : "") + (c.num ? "num" : "")}
+                        className={(c.sortable ? "sortable " : "") + (c.num ? "num " : "") + (c.starCol ? "star-col" : "")}
                         onClick={c.sortable ? () => doSort(c.key) : undefined}>
                       {c.label}
                       {c.sortable && (sortKey === c.key
@@ -447,21 +651,63 @@ function App() {
               </thead>
               <tbody>
                 {rows.length === 0 ? (
-                  <tr><td colSpan={COLUMNS.length} className="empty">{search ? "沒有符合搜尋條件的結果" : "沒有符合條件的可轉債"}</td></tr>
+                  <tr><td colSpan={COLUMNS.length} className="empty">
+                    {activeTab === "__watchlist"
+                      ? (<>關注清單是空的<small>在其他 tab 點 ☆ 可加入</small></>)
+                      : search ? "沒有符合搜尋條件的結果" : "沒有符合條件的可轉債"
+                    }
+                  </td></tr>
                 ) : rows.map((row, i) => {
                   const p = row["溢價率"];
+                  const code = String(row["代號"]);
+                  const isExpanded = expandedRow === code;
+                  const isWatched = watchlist.has(code);
+                  const expDays = daysToExpiry(row["到期日"]);
                   return (
-                    <tr key={row["代號"]||i} className={premRowClass(p)}>
-                      {COLUMNS.map(c => {
-                        const v = row[c.key];
-                        let display = fmtVal(v, c.fmt);
-                        let cls = c.num ? "num" : "";
-                        if (c.key === "溢價率") cls += " " + premColor(v);
-                        if (c.key === "有擔保") display = v === "有" ? "🛡" : "";
-                        if (c.key === "代號") cls += " code";
-                        return <td key={c.key} className={cls}>{display}</td>;
-                      })}
-                    </tr>
+                    <React.Fragment key={code||i}>
+                      <tr className={`${premRowClass(p)} ${isExpanded ? "expanded" : ""}`}
+                          onClick={() => setExpandedRow(isExpanded ? null : code)}>
+                        {COLUMNS.map(c => {
+                          if (c.starCol) {
+                            return (
+                              <td key={c.key} style={{paddingLeft:12, paddingRight:4}}>
+                                <button
+                                  className={`star-btn ${isWatched ? "on" : ""}`}
+                                  onClick={e => { e.stopPropagation(); toggleWatch(code); }}
+                                  title={isWatched ? "取消關注" : "加入關注"}
+                                >
+                                  {isWatched ? "★" : "☆"}
+                                </button>
+                              </td>
+                            );
+                          }
+                          const v = row[c.key];
+                          let display = fmtVal(v, c.fmt);
+                          let cls = c.num ? "num" : "";
+                          if (c.key === "溢價率") cls += " " + premColor(v);
+                          if (c.key === "有擔保") display = v === "有" ? "🛡" : "";
+                          if (c.key === "代號") cls += " code";
+                          if (c.key === "到期日") {
+                            const eCls = expiryClass(expDays);
+                            if (eCls) cls += " " + eCls;
+                            return (
+                              <td key={c.key} className={cls}>
+                                {display}
+                                {expDays != null && expDays < 365 && <span className="expiry-days">({expDays}d)</span>}
+                              </td>
+                            );
+                          }
+                          return <td key={c.key} className={cls}>{display}</td>;
+                        })}
+                      </tr>
+                      {isExpanded && (
+                        <tr className="calc-row">
+                          <td colSpan={COLUMNS.length}>
+                            <Calculator row={row} onClose={() => setExpandedRow(null)} />
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
                   );
                 })}
               </tbody>
