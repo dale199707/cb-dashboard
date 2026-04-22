@@ -94,6 +94,8 @@
   .expiry-warn { color: #fb923c; }
   .expiry-days { font-size: 10px; color: #64748b; margin-left: 4px; }
 
+  .new-badge { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px; background: rgba(34,211,238,0.15); color: #22d3ee; font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; vertical-align: middle; }
+
   .calc-row td { padding: 0; border-bottom: 1px solid rgba(30,41,59,0.5); }
   .calc-panel { background: rgba(7,10,16,0.6); padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .calc-section h4 { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; font-weight: 500; }
@@ -208,6 +210,19 @@ function expiryClass(days) {
   if (days < 90) return "expiry-urgent";
   if (days < 180) return "expiry-warn";
   return "";
+}
+
+// 🆕 標籤：首次上榜日距今 < 3 天才顯示，顯示 "M/D"
+function getNewBadge(firstSeen) {
+  if (!firstSeen) return null;
+  const d = new Date(firstSeen);
+  if (isNaN(d.getTime())) return null;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  d.setHours(0,0,0,0);
+  const days = Math.floor((today - d) / (1000*60*60*24));
+  if (days < 0 || days >= 3) return null;
+  return `${d.getMonth()+1}/${d.getDate()}`;
 }
 
 function loadLS(key, fallback) {
@@ -687,6 +702,18 @@ function App() {
                           if (c.key === "溢價率") cls += " " + premColor(v);
                           if (c.key === "有擔保") display = v === "有" ? "🛡" : "";
                           if (c.key === "代號") cls += " code";
+                          if (c.key === "債券名稱") {
+                            const fs = row["首次上榜"];
+                            const newBadge = getNewBadge(fs);
+                            if (newBadge) {
+                              return (
+                                <td key={c.key} className={cls}>
+                                  {display}
+                                  <span className="new-badge">🆕{newBadge}</span>
+                                </td>
+                              );
+                            }
+                          }
                           if (c.key === "到期日") {
                             const eCls = expiryClass(expDays);
                             if (eCls) cls += " " + eCls;
