@@ -214,16 +214,29 @@ function expiryClass(days) {
   return "";
 }
 
-// 🆕 標籤：首次上榜日距今 < 3 天才顯示，顯示 "M/D"
-function getNewBadge(firstSeen) {
+// 🆕 標籤：後端直接標記「是否新上榜」（以交易日 tick 計算，前端只需顯示）
+// 如果後端沒標記（舊版資料），退回用首次上榜日計算日曆 3 天
+function getNewBadge(row) {
+  if (!row) return null;
+  const firstSeen = row["首次上榜"];
   if (!firstSeen) return null;
+
+  // 優先看後端旗標
+  const backendFlag = row["是否新上榜"];
+  if (backendFlag === false) return null;
+
   const d = new Date(firstSeen);
   if (isNaN(d.getTime())) return null;
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  d.setHours(0,0,0,0);
-  const days = Math.floor((today - d) / (1000*60*60*24));
-  if (days < 0 || days >= 3) return null;
+
+  // 如果後端沒給 is_new 旗標（舊版），fallback 到日曆天 3 天
+  if (backendFlag === undefined) {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    d.setHours(0,0,0,0);
+    const days = Math.floor((today - d) / (1000*60*60*24));
+    if (days < 0 || days >= 3) return null;
+  }
+
   return `${d.getMonth()+1}/${d.getDate()}`;
 }
 
@@ -705,8 +718,7 @@ function App() {
                           if (c.key === "有擔保") display = v === "有" ? "🛡" : "";
                           if (c.key === "代號") cls += " code";
                           if (c.key === "債券名稱") {
-                            const fs = row["首次上榜"];
-                            const newBadge = getNewBadge(fs);
+                            const newBadge = getNewBadge(row);
                             if (newBadge) {
                               // 點 🆕 跳到該檔新聞頁（該頁面若不存在會 404，但 MVP 先放連結）
                               const newsUrl = `news/${code}.html`;
