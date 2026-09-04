@@ -97,6 +97,9 @@
   .new-badge { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px; background: rgba(34,211,238,0.15); color: #22d3ee; font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; vertical-align: middle; text-decoration: none; transition: background 0.15s; }
   .new-badge:hover { background: rgba(34,211,238,0.3); }
   .new-badge.news-link::after { content: " 📰"; font-size: 9px; margin-left: 2px; }
+  .news-button { display: inline-block; margin-left: 6px; color: #94a3b8; text-decoration: none; font-size: 12px; vertical-align: middle; }
+  .news-button:hover { color: #22d3ee; }
+  .quality-warning { margin-bottom: 12px; padding: 9px 12px; border: 1px solid rgba(251,191,36,0.35); border-radius: 8px; background: rgba(251,191,36,0.07); color: #fbbf24; font-size: 11px; line-height: 1.6; }
 
   .calc-row td { padding: 0; border-bottom: 1px solid rgba(30,41,59,0.5); }
   .calc-panel { background: rgba(7,10,16,0.6); padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -623,6 +626,11 @@ function App() {
       </header>
 
       <div className="container">
+        {(data.data_quality?.warnings || []).length > 0 && (
+          <div className="quality-warning">
+            ⚠ 資料品質提醒：{data.data_quality.warnings.join("；")}
+          </div>
+        )}
         <div className="toolbar">
           <div className="tabs">
             {strategies.map(s => (
@@ -719,21 +727,28 @@ function App() {
                           if (c.key === "代號") cls += " code";
                           if (c.key === "債券名稱") {
                             const newBadge = getNewBadge(row);
-                            if (newBadge) {
-                              // 點 🆕 跳到該檔新聞頁（該頁面若不存在會 404，但 MVP 先放連結）
-                              const newsUrl = `news/${code}.html`;
-                              return (
-                                <td key={c.key} className={cls}>
-                                  {display}
+                            const newsUrl = row["新聞連結"];
+                            return (
+                              <td key={c.key} className={cls}>
+                                {display}
+                                {newBadge && (newsUrl ? (
                                   <a href={newsUrl}
                                      className="new-badge news-link"
                                      onClick={e => e.stopPropagation()}
                                      title="看新聞整理">
                                     🆕{newBadge}
                                   </a>
-                                </td>
-                              );
-                            }
+                                ) : (
+                                  <span className="new-badge">🆕{newBadge}</span>
+                                ))}
+                                {newsUrl && !newBadge && (
+                                  <a href={newsUrl}
+                                     className="news-button"
+                                     onClick={e => e.stopPropagation()}
+                                     title="看新聞整理">📰</a>
+                                )}
+                              </td>
+                            );
                           }
                           if (c.key === "到期日") {
                             const eCls = expiryClass(expDays);
@@ -765,7 +780,7 @@ function App() {
 
         <div className="footer">
           <p>資料來源：統一證券 CBAS API · 均線：yfinance</p>
-          <p>策略篩選 + Telegram 推播 · GitHub Actions 自動化</p>
+          <p>策略篩選 + 資料品質檢查 · GitHub Actions 自動化</p>
         </div>
       </div>
     </div>
